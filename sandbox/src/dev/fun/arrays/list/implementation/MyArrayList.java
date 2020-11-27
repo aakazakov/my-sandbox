@@ -2,6 +2,7 @@ package dev.fun.arrays.list.implementation;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 
 import dev.fun.arrays.list.adapter.ListAdapter;
 
@@ -147,6 +148,24 @@ public class MyArrayList<T> extends ListAdapter<T> {
 	private void check(int index) {
 		if (index > size || index < 0)
 			throw new IllegalArgumentException("Index: " + index);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void bubbleSort(Comparator<T> comparator) {
+		for (int i = size - 1; i > 0; i--) {
+			for (int j = 0; j < i; j++) {
+				int compare = comparator.compare((T) base[j], (T) base[j + 1]);
+				if (compare > 0) {
+					swap(j, j + 1);
+				}
+			}
+		}
+	}
+	
+	private void swap(int index1, int index2) {
+		Object tmp = base[index1];
+		base[index1] = base[index2];
+		base[index2] = tmp;
 	}
 	
 }

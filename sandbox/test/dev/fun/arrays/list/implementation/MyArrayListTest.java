@@ -138,5 +138,15 @@ class MyArrayListTest {
 		assertFalse(testList.remove(Integer.valueOf(100)));
 		assertFalse(testList.remove(null));
 	}
+	
+	@Test
+	void check_bubble_sort() {
+		MyArrayList<Integer> testList = new MyArrayList<>(Arrays.asList(3, 1, 0, 2, 5, 7, 4, 6));
+		testList.bubbleSort((o1, o2) -> o1 - o2);
+		int[] expectedSeq = {0, 1, 2, 3, 4, 5, 6, 7};
+		for (int i = 0; i < testList.size(); i++) {
+			assertEquals(expectedSeq[i], testList.get(i).intValue());
+		}
+	}
 
 }
