@@ -95,7 +95,7 @@ class MyArrayListTest {
 	}
 	
 	@Test
-	void shoud_return_an_element() {
+	void should_return_an_element() {
 		MyArrayList<Integer> testList = new MyArrayList<>(Arrays.asList(0, 1, 2, 3));	
 		Integer num = testList.get(2);
 		
@@ -103,7 +103,7 @@ class MyArrayListTest {
 	}
 	
 	@Test
-	void chould_remove_by_index() {
+	void should_remove_by_index() {
 		MyArrayList<Integer> testList = new MyArrayList<>(Arrays.asList(0, 1, 2, 3));
 		Integer num = testList.remove(2);
 		int size = testList.size();
@@ -112,6 +112,22 @@ class MyArrayListTest {
 		assertEquals(2, num);
 		assertEquals(3, size);
 		assertNull(testList.get(size));
+	}
+	
+	@SuppressWarnings("unlikely-arg-type")
+	@Test
+	void should_return_index() {
+		MyArrayList<Integer> testList = new MyArrayList<>(Arrays.asList(0, 1, 2, 3));
+		int index;
+		
+		index = testList.indexOf(3);		
+		assertEquals(3,  index);
+		
+		index = testList.indexOf(null);
+		assertEquals(-1,  index);
+		
+		index = testList.indexOf("3");
+		assertEquals(-1,  index);
 	}
 
 }

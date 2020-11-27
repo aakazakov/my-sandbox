@@ -118,7 +118,22 @@ public class MyArrayList<T> extends ListAdapter<T> {
 		base[size] = null;
 		return removed;
 	}
-	
+		
+	@Override
+	public int indexOf(Object o) {
+		if (o == null) {
+			for (int i = 0; i < size; i++) {
+				if (base[i] == null) return i;
+			}
+		} else {
+			for (int i = 0; i < size; i++) {
+				Object obj = base[i];
+				if (o.equals(obj)) return i;
+			}
+		}
+		return -1;
+	}	
+
 	private void check(int index) {
 		if (index > size || index < 0)
 			throw new IllegalArgumentException("Index: " + index);
