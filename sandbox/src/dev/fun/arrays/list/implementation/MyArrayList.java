@@ -3,11 +3,13 @@ package dev.fun.arrays.list.implementation;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.logging.Logger;
 
 import dev.fun.arrays.list.adapter.ListAdapter;
 
 public class MyArrayList<T> extends ListAdapter<T> {
 	
+	private Logger logger = Logger.getLogger(this.getClass().getName());
 	private static final int DEFAULT_CAPACITY = 10;
 	private static final Object[] BASIC_INITIALIZATION = {};
 	private Object[] base;
@@ -152,6 +154,8 @@ public class MyArrayList<T> extends ListAdapter<T> {
 	
 	@SuppressWarnings("unchecked")
 	public void bubbleSort(Comparator<T> comparator) {
+		long startLog = System.currentTimeMillis();
+		
 		for (int i = size - 1; i > 0; i--) {
 			for (int j = 0; j < i; j++) {
 				int compare = comparator.compare((T) base[j], (T) base[j + 1]);
@@ -160,10 +164,16 @@ public class MyArrayList<T> extends ListAdapter<T> {
 				}
 			}
 		}
+		
+		long finishLog = System.currentTimeMillis();
+		String log = String.format("Bubble sort, time: %d ms", finishLog - startLog);
+		logger.info(log);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public void selectionSort(Comparator<T> comparator) {
+		long startLog = System.currentTimeMillis();
+		
 		int min;
 		for (int i = 0; i < size; i++) {
 			min = i;
@@ -175,10 +185,16 @@ public class MyArrayList<T> extends ListAdapter<T> {
 			}
 			swap(i, min);
 		}
+		
+		long finishLog = System.currentTimeMillis();
+		String log = String.format("Selection sort, time: %d ms", finishLog - startLog);
+		logger.info(log);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public void insertionSort(Comparator<T> comparator) {
+		long startLog = System.currentTimeMillis();
+		
 		T tmp;
 		int i, j;
 		for (i = 1; i < size; i++) {
@@ -190,6 +206,10 @@ public class MyArrayList<T> extends ListAdapter<T> {
 			}
 			base[j] = tmp;
 		}
+		
+		long finishLog = System.currentTimeMillis();
+		String log = String.format("Insertion sort, time: %d ms", finishLog - startLog);
+		logger.info(log);
 	}
 	
 	private void swap(int index1, int index2) {
