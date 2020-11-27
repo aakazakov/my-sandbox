@@ -162,6 +162,36 @@ public class MyArrayList<T> extends ListAdapter<T> {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public void selectionSort(Comparator<T> comparator) {
+		int min;
+		for (int i = 0; i < size; i++) {
+			min = i;
+			for (int j = i + 1; j < size; j++) {
+				int compare = comparator.compare((T) base[min], (T) base[j]);
+				if (compare > 0) {
+					min = j;
+				}
+			}
+			swap(i, min);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void insertionSort(Comparator<T> comparator) {
+		T tmp;
+		int i, j;
+		for (i = 1; i < size; i++) {
+			tmp = (T) base[i];
+			j = i;
+			while (j > 0 && comparator.compare(tmp, (T) base[j - 1]) < 0) {
+				base[j] = base[j - 1];
+				j--;
+			}
+			base[j] = tmp;
+		}
+	}
+	
 	private void swap(int index1, int index2) {
 		Object tmp = base[index1];
 		base[index1] = base[index2];

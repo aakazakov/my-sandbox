@@ -148,5 +148,25 @@ class MyArrayListTest {
 			assertEquals(expectedSeq[i], testList.get(i).intValue());
 		}
 	}
+	
+	@Test
+	void check_selection_sort() {
+		MyArrayList<Integer> testList = new MyArrayList<>(Arrays.asList(3, 1, 0, 2, 5, 7, 4, 6));
+		testList.selectionSort((o1, o2) -> o1 - o2);
+		int[] expectedSeq = {0, 1, 2, 3, 4, 5, 6, 7};
+		for (int i = 0; i < testList.size(); i++) {
+			assertEquals(expectedSeq[i], testList.get(i).intValue());
+		}
+	}
+	
+	@Test
+	void check_insertion_sort() {
+		MyArrayList<Integer> testList = new MyArrayList<>(Arrays.asList(3, 1, 0, 2, 5, 7, 4, 6));
+		testList.insertionSort((o1, o2) -> o1 - o2);
+		int[] expectedSeq = {0, 1, 2, 3, 4, 5, 6, 7};
+		for (int i = 0; i < testList.size(); i++) {
+			assertEquals(expectedSeq[i], testList.get(i).intValue());
+		}
+	}
 
 }
