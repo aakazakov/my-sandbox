@@ -40,9 +40,9 @@ class MyArrayListTest {
 		assertEquals(0, testListCapacity0);
 		assertEquals(0, testListSize0);
 		
-		Exception e = assertThrows(IllegalArgumentException.class, () -> {
-			new MyArrayList<>(-2);
-		});
+		Exception e = assertThrows(IllegalArgumentException.class, () -> 
+			new MyArrayList<>(-2)
+		);
 		
 		assertEquals("Capacity: -2", e.getMessage());
 	}
@@ -83,14 +83,14 @@ class MyArrayListTest {
 		testList.add(2, 10);
 		assertEquals(5, testList.size());
 		
-		Exception e = assertThrows(IllegalArgumentException.class, () -> {
-			testList.add(100, 10);
-		});
+		Exception e = assertThrows(IllegalArgumentException.class, () ->
+			testList.add(100, 10)
+		);
 		assertEquals("Index: 100", e.getMessage());
 		
-		Exception e0 = assertThrows(IllegalArgumentException.class, () -> {
-			testList.add(-1, 10);
-		});
+		Exception e0 = assertThrows(IllegalArgumentException.class, () ->
+			testList.add(-1, 10)
+		);
 		assertEquals("Index: -1", e0.getMessage());	
 	}
 	

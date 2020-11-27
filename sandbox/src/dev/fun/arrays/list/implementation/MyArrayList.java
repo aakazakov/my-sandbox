@@ -196,7 +196,8 @@ public class MyArrayList<T> extends ListAdapter<T> {
 		long startLog = System.currentTimeMillis();
 		
 		T tmp;
-		int i, j;
+		int i;
+		int j;
 		for (i = 1; i < size; i++) {
 			tmp = (T) base[i];
 			j = i;
