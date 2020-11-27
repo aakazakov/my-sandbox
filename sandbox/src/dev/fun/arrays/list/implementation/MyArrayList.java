@@ -105,6 +105,31 @@ public class MyArrayList<T> extends ListAdapter<T> {
 		check(index);
 		return (T) base[index];
 	}
+	
+	@Override
+	public boolean remove(Object o) {
+		int index = indexOf(o);
+		if (index < 0) {
+			return false;
+		} 
+		remove(index);
+		return true;
+	}
+	
+	@Override
+	public final int indexOf(Object o) {
+		if (o == null) {
+			for (int i = 0; i < size; i++) {
+				if (base[i] == null) return i;
+			}
+		} else {
+			for (int i = 0; i < size; i++) {
+				Object obj = base[i];
+				if (o.equals(obj)) return i;
+			}
+		}
+		return -1;
+	}	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -118,21 +143,6 @@ public class MyArrayList<T> extends ListAdapter<T> {
 		base[size] = null;
 		return removed;
 	}
-		
-	@Override
-	public int indexOf(Object o) {
-		if (o == null) {
-			for (int i = 0; i < size; i++) {
-				if (base[i] == null) return i;
-			}
-		} else {
-			for (int i = 0; i < size; i++) {
-				Object obj = base[i];
-				if (o.equals(obj)) return i;
-			}
-		}
-		return -1;
-	}	
 
 	private void check(int index) {
 		if (index > size || index < 0)

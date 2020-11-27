@@ -129,5 +129,14 @@ class MyArrayListTest {
 		index = testList.indexOf("3");
 		assertEquals(-1,  index);
 	}
+	
+	@Test
+	void should_remove_object() {
+		MyArrayList<Integer> testList = new MyArrayList<>(Arrays.asList(0, 1, 2, 3));
+		
+		assertTrue(testList.remove(Integer.valueOf(3)));
+		assertFalse(testList.remove(Integer.valueOf(100)));
+		assertFalse(testList.remove(null));
+	}
 
 }
