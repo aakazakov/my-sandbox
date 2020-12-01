@@ -2,8 +2,6 @@ package dev.fun.arrays.list;
 
 import java.util.Random;
 
-import dev.fun.arrays.list.implementation.MyArrayList;
-
 public class Main {
 	
 	public static void main(String[] args) {

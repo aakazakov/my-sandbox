@@ -1,4 +1,4 @@
-package dev.fun.arrays.list.implementation;
+package dev.fun.arrays.list;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -114,7 +114,6 @@ class MyArrayListTest {
 		assertNull(testList.get(size));
 	}
 	
-	@SuppressWarnings("unlikely-arg-type")
 	@Test
 	void should_return_index() {
 		MyArrayList<Integer> testList = new MyArrayList<>(Arrays.asList(0, 1, 2, 3));

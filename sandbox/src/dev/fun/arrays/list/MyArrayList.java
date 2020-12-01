@@ -1,13 +1,11 @@
-package dev.fun.arrays.list.implementation;
+package dev.fun.arrays.list;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.logging.Logger;
 
-import dev.fun.arrays.list.adapter.ListAdapter;
-
-public class MyArrayList<T> extends ListAdapter<T> {
+public class MyArrayList<T> {
 	
 	private Logger logger = Logger.getLogger(this.getClass().getName());
 	private static final int DEFAULT_CAPACITY = 10;
@@ -42,12 +40,10 @@ public class MyArrayList<T> extends ListAdapter<T> {
 		}
 	}
 
-	@Override
 	public int size() {
 		return size;
 	}
 	
-	@Override
 	public void add(int index, T element) {
 		check(index);
 		if (freeCapacity() > 0) {
@@ -66,7 +62,6 @@ public class MyArrayList<T> extends ListAdapter<T> {
 		size++;
 	}
 
-	@Override
 	public boolean add(T e) {	
 		if (freeCapacity() > 0) {
 			addAtTheEnd(e);
@@ -97,19 +92,16 @@ public class MyArrayList<T> extends ListAdapter<T> {
 		return base.length;
 	}
 
-	@Override
 	public boolean isEmpty() {
 		return size == 0;
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public T get(int index) {
 		check(index);
 		return (T) base[index];
 	}
 	
-	@Override
 	public boolean remove(Object o) {
 		int index = indexOf(o);
 		if (index < 0) {
@@ -119,7 +111,6 @@ public class MyArrayList<T> extends ListAdapter<T> {
 		return true;
 	}
 	
-	@Override
 	public final int indexOf(Object o) {
 		if (o == null) {
 			for (int i = 0; i < size; i++) {
@@ -135,7 +126,6 @@ public class MyArrayList<T> extends ListAdapter<T> {
 	}	
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public T remove(int index) {
 		check(index);
 		T removed = (T) base[index];
