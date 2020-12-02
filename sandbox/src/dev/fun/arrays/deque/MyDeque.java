@@ -14,6 +14,14 @@ public class MyDeque<E> {
 		return base;
 	}
 	
+	public int getEnd() {
+		return end;
+	}
+	
+	public int getBegin() {
+		return begin;
+	}
+	
 	public MyDeque() {
 		base = new Object[DEFAULT_CAPACITY];
 	}
@@ -40,6 +48,22 @@ public class MyDeque<E> {
 		base[begin] = e;
 	}
 	
+	public E removeLeft() {
+		E tmp = peekLeft();
+		size--;
+		base[begin] = null;
+		begin = nextIndex(begin);
+		return tmp;
+	}
+	
+	public E removeRight() {
+		E tmp = peekRight();
+		size--;
+		base[end - 1] = null;
+		end = previousIndex(end);
+		return tmp;
+	}
+	
 	private int nextIndex(int index) {
 		return (index + 1) % base.length;
 	}
@@ -48,6 +72,20 @@ public class MyDeque<E> {
 		return index == 0 ? base.length - 1: index - 1;
 	}
 
+	@SuppressWarnings("unchecked")
+	public E peekLeft() {
+		if (isEmpty())
+			throw new NoSuchElementException("deque is empty");
+		return (E) base[begin];
+	}
+	
+	@SuppressWarnings("unchecked")
+	public E peekRight() {
+		if (isEmpty())
+			throw new NoSuchElementException("deque is empty");
+		return (E) base[end - 1];
+	}
+	
 	public boolean isEmpty() {
 		return size == 0;
 	}
@@ -58,20 +96,6 @@ public class MyDeque<E> {
 	
 	public int size() {
 		return size;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public E peakLeft() {
-		if (isEmpty())
-			throw new NoSuchElementException("deque is empty");
-		return (E) base[begin];
-	}
-	
-	@SuppressWarnings("unchecked")
-	public E peakRight() {
-		if (isEmpty())
-			throw new NoSuchElementException("deque is empty");
-		return (E) base[end - 1];
 	}
 	
 }

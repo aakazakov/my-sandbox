@@ -47,6 +47,7 @@ class MyDequeTest {
 		assertEquals(1, (Integer) base[base.length - 1]);
 		assertEquals(2, (Integer) base[base.length - 2]);
 		assertEquals(3, (Integer) base[base.length - 3]);
+		assertEquals(7, deque.getBegin());
 	}
 	
 	@Test
@@ -55,7 +56,7 @@ class MyDequeTest {
 		deque.insertLeft(2);
 		deque.insertLeft(3);
 		
-		Integer actual = deque.peakLeft();
+		Integer actual = deque.peekLeft();
 		
 		assertNotNull(actual);
 		assertEquals(3, actual);
@@ -67,10 +68,40 @@ class MyDequeTest {
 		deque.insertRight(1);
 		deque.insertRight(2);
 		
-		Integer actual = deque.peakRight();
+		Integer actual = deque.peekRight();
 		
 		assertNotNull(actual);
 		assertEquals(2, actual);
+	}
+	
+	@Test
+	void should_remove_and_return_an_element_to_the_left() throws MyDequeOverflowException {
+		deque.insertLeft(1);
+		deque.insertLeft(2);
+		deque.insertLeft(3);
+		
+		Integer removed = deque.removeLeft();
+		
+		assertNotNull(removed);
+		assertNull(deque.getBase()[2]);
+		assertEquals(3, removed);
+		assertEquals(2, deque.size());
+		assertEquals(8, deque.getBegin());
+	}
+	
+	@Test
+	void should_remove_and_return_an_element_to_the_right() throws MyDequeOverflowException {
+		deque.insertRight(0);
+		deque.insertRight(1);
+		deque.insertRight(2);
+		
+		Integer removed = deque.removeRight();
+		
+		assertNotNull(removed);
+		assertNull(deque.getBase()[deque.getBase().length - 1]);
+		assertEquals(2, removed);
+		assertEquals(2, deque.size());
+		assertEquals(2, deque.getEnd());
 	}
 	
 	@Test
