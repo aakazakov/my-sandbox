@@ -86,6 +86,16 @@ public class MyDeque<E> {
 		return (E) base[end - 1];
 	}
 	
+	public void clear() {
+		while (!isEmpty()) {
+			base[begin] = null;
+			begin = nextIndex(begin);
+			size--;
+		}
+		end = 0;
+		begin = 0;
+	}
+	
 	public boolean isEmpty() {
 		return size == 0;
 	}

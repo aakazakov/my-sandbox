@@ -105,6 +105,26 @@ class MyDequeTest {
 	}
 	
 	@Test
+	void should_clear_all() throws MyDequeOverflowException {
+		deque.insertRight(0);
+		deque.insertRight(1);
+		deque.insertRight(2);
+		deque.insertLeft(1);
+		deque.insertLeft(2);
+		deque.insertLeft(3);
+		
+		deque.clear();
+		Object[] base = deque.getBase();
+		
+		for (int i = 0; i < base.length; i++) {
+			assertNull(base[i]);
+		}
+		assertEquals(0, deque.size());
+		assertEquals(0, deque.getBegin());
+		assertEquals(0, deque.getEnd());
+	}
+	
+	@Test
 	void check_overflow_exception() {
 		Exception e = assertThrows(MyDequeOverflowException.class, () -> {
 			for (int i = 0; i < 11; i++) {
