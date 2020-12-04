@@ -45,6 +45,31 @@ public final class DoublyLinkedList<E> {
 		size++;
 	}
 	
+	public boolean remove(E e) {
+		if (isEmpty()) {
+			return false;
+		}
+		if (first.value.equals(e)) {
+			removeFirst();
+			return true;
+		}
+		Node current = first.next;
+		while (current != null && !current.value.equals(e)) {
+			current = current.next;
+		}
+		if (current == null) {
+			return false;
+		}
+		if (last.value.equals(current)) {
+			removeLast();
+			return true;
+		}
+		current.prev.next = current.next;
+		current.next.prev = current.prev;
+		size--;
+		return true;
+	}
+	
 	public E removeFirst() {
 		E tmp = peekFirst();
 		if (tmp == null) {
@@ -75,6 +100,10 @@ public final class DoublyLinkedList<E> {
 		return tmp;
 	}
 	
+	public boolean contains(E e) {
+		return indexOf(e) != -1;
+	}
+		
 	public int indexOf(E e) {
 		Node current = first;
 		int index = 0;

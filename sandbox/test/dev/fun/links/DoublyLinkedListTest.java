@@ -108,4 +108,37 @@ class DoublyLinkedListTest {
 		
 		assertEquals(-1, actual);
 	}
+	
+	@Test
+	void should_remove_random_element() {
+		links.insertLast(1);
+		links.insertLast(2);
+		links.insertLast(3);
+		links.insertLast(4);
+		
+		boolean actual = links.remove(2);
+		
+		assertTrue(actual);
+		
+		actual = links.remove(5);
+		
+		assertFalse(actual);
+		assertEquals(3, links.size());
+	}
+	
+	@Test
+	void check_contains() {
+		links.insertLast(1);
+		links.insertLast(2);
+		links.insertLast(3);
+		links.insertLast(4);
+		
+		boolean actual = links.contains(2);
+		
+		assertTrue(actual);
+		
+		actual = links.contains(5);
+		
+		assertFalse(actual);
+	}
 }
