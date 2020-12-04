@@ -92,4 +92,20 @@ class DoublyLinkedListTest {
 		
 		assertNull(actual);
 	}
+	
+	@Test
+	void check_index_of() {
+		links.insertFirst(1);
+		links.insertFirst(2);
+		links.insertLast(3);
+		links.insertLast(4);
+		
+		int actual = links.indexOf(3);
+		
+		assertEquals(2, actual);
+		
+		actual = links.indexOf(5);
+		
+		assertEquals(-1, actual);
+	}
 }

@@ -76,6 +76,19 @@ public final class DoublyLinkedList<E> {
 		return tmp;
 	}
 	
+	public int indexOf(E e) {
+		Node current = first;
+		int index = 0;
+		while(current != null) {
+			if (current.value.equals(e)) {
+				return index;
+			}
+			current = current.next;
+			index++;
+		}
+		return -1;
+	}
+	
 	public E peekFirst() {
 		return isEmpty() ? null : first.value;
 	}
