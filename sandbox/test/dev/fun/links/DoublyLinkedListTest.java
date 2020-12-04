@@ -140,6 +140,19 @@ class DoublyLinkedListTest {
 	}
 	
 	@Test
+	void chould_insert_by_index() {
+		links.insertLast(1);
+		links.insertLast(2);
+		links.insertLast(3);
+		links.insertLast(4);
+		
+		links.insert(Integer.valueOf(10), 2);
+		
+		assertEquals(5, links.size());
+		assertEquals(2, links.indexOf(Integer.valueOf(10)));
+	}
+	
+	@Test
 	void check_contains() {
 		links.insertLast(1);
 		links.insertLast(2);

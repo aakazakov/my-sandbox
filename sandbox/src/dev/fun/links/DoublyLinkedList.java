@@ -21,6 +21,28 @@ public final class DoublyLinkedList<E> {
 		this.last = null;
 	}
 	
+	public void insert(E e, int index) {
+		if (index < 0 || index > size - 1) {
+			throw new IllegalArgumentException("argument cannot be: " + index);
+		}
+		if (index == 0) {
+			insertFirst(e);
+		}
+		if (index == size - 1) {
+			insertLast(e);
+		}
+		Node current = first.next;
+		for (int i = 1; i < index - 1; i++) {
+			current = current.next;
+		}
+		Node node = new Node(e);
+		node.next = current.next;
+		node.prev = current;
+		current.next.prev = node;
+		current.next = node;
+		size++;
+	}
+	
 	public void insertFirst(E e) {
 		Node node = new Node(e);
 		node.next = first;
