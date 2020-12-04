@@ -49,6 +49,21 @@ public final class DoublyLinkedList<E> {
 		size++;
 	}
 	
+	public E removeFirst() {
+		E tmp = peekFirst();
+		if (tmp == null) {
+			return null;
+		}
+		first = first.next;
+		if (isEmpty()) {
+			last = null;
+		} else {
+			first.prev = null;
+		}
+		size--;
+		return tmp;
+	}
+	
 	public E peekFirst() {
 		return isEmpty() ? null : first.value;
 	}

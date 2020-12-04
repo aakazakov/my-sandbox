@@ -46,4 +46,23 @@ class DoublyLinkedListTest {
 		assertEquals(3, links.size());
 		assertEquals(1, links.peekFirst());
 	}
+	
+	@Test
+	void should_remove_first() {
+		links.insertFirst(1);
+		links.insertFirst(2);
+		
+		Integer actual = links.removeFirst();
+		
+		assertEquals(2, actual);
+		assertEquals(1, links.size());
+		assertEquals(1, links.peekLast());
+		
+		actual = links.removeFirst();
+		
+		assertEquals(1, actual);
+		assertEquals(0, links.size());
+		assertNull(links.peekLast());
+		assertNull(links.peekFirst());
+	}
 }
