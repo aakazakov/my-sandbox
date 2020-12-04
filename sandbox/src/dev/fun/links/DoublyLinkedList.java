@@ -2,21 +2,18 @@ package dev.fun.links;
 
 public final class DoublyLinkedList<E> {
 	
-	@SuppressWarnings("hiding")
-	private class Node<E> {
+	private class Node {
 		E value;
-		@SuppressWarnings("unused")
-		Node<E> next;
-		@SuppressWarnings("unused")
-		Node<E> prev;
+		Node next;
+		Node prev;
 		
-		public Node(E value) {
+		Node(E value) {
 			this.value = value;
 		}
 	}
 	
-	private Node<E> first;
-	private Node<E> last;
+	private Node first;
+	private Node last;
 	private int size;
 	
 	public DoublyLinkedList() {
@@ -25,7 +22,7 @@ public final class DoublyLinkedList<E> {
 	}
 	
 	public void insertFirst(E e) {
-		Node<E> node = new Node<>(e);
+		Node node = new Node(e);
 		node.next = first;
 		if (isEmpty()) {
 			last = node;
@@ -37,7 +34,7 @@ public final class DoublyLinkedList<E> {
 	}
 	
 	public void insertLast(E e) {
-		Node<E> node = new Node<>(e);
+		Node node = new Node(e);
 		node.next = last;
 		if (isEmpty()) {
 			first = node;
