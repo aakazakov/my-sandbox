@@ -83,7 +83,7 @@ public class MyDeque<E> {
 	public E peekRight() {
 		if (isEmpty())
 			throw new NoSuchElementException("deque is empty");
-		return (E) base[end - 1];
+		return (E) base[previousIndex(end)];
 	}
 	
 	public void clear() {
