@@ -35,7 +35,6 @@ public final class DoublyLinkedList<E> {
 	
 	public void insertLast(E e) {
 		Node node = new Node(e);
-		node.next = last;
 		if (isEmpty()) {
 			first = node;
 		} else {
@@ -104,4 +103,5 @@ public final class DoublyLinkedList<E> {
 	public int size() {
 		return size;
 	}
+
 }
