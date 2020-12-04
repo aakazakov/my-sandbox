@@ -69,7 +69,7 @@ public class MyDeque<E> {
 	}
 	
 	private int previousIndex(int index) {
-		return index == 0 ? base.length - 1: index - 1;
+		return (base.length - 1 + index) % base.length;
 	}
 
 	@SuppressWarnings("unchecked")
