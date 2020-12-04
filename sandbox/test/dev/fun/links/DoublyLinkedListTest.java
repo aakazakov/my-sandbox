@@ -116,13 +116,26 @@ class DoublyLinkedListTest {
 		links.insertLast(3);
 		links.insertLast(4);
 		
-		boolean actual = links.remove(2);
+		boolean actual = links.remove(Integer.valueOf(2));
 		
 		assertTrue(actual);
 		
-		actual = links.remove(5);
+		actual = links.remove(Integer.valueOf(5));
 		
 		assertFalse(actual);
+		assertEquals(3, links.size());
+	}
+	
+	@Test
+	void should_remove_element_by_index() {
+		links.insertLast(1);
+		links.insertLast(2);
+		links.insertLast(3);
+		links.insertLast(4);
+		
+		Integer actual = links.remove(2);
+		
+		assertEquals(3, actual);
 		assertEquals(3, links.size());
 	}
 	

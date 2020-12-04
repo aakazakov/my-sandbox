@@ -70,6 +70,27 @@ public final class DoublyLinkedList<E> {
 		return true;
 	}
 	
+	public E remove(int index) {
+		if (index < 0 || index > size - 1) {
+			throw new IllegalArgumentException("argument cannot be: " + index);
+		}
+		if (index == 0) {
+			return removeFirst();
+		}
+		if (index == size - 1) {
+			return removeLast();
+		}
+		Node current = first.next;
+		for (int i = 1; i < index; i++) {
+			current = current.next;
+		}
+		E tmp = current.value;
+		current.prev.next = current.next;
+		current.next.prev = current.prev;
+		size--;
+		return tmp;
+	}
+	
 	public E removeFirst() {
 		E tmp = peekFirst();
 		if (tmp == null) {
