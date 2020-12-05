@@ -79,8 +79,7 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
 
 		@Override
 		public void set(E e) {
-			// TODO Auto-generated method stub
-			
+			current.value = e;
 		}
 
 		@Override

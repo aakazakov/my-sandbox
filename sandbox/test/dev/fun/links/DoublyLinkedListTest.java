@@ -264,6 +264,26 @@ class DoublyLinkedListTest {
 	}
 	
 	@Test
+	void should_set_element() {
+		links.insertLast(1);
+		links.insertLast(2);
+		links.insertLast(3);
+		
+		ListIterator<Integer> iterator = links.iterator();
+		
+		iterator.next();
+		iterator.set(10);
+		
+		assertEquals(10, links.peekFirst());
+		
+		iterator.next();
+		iterator.previous();
+		iterator.set(1);
+		
+		assertEquals(1, links.peekFirst());
+	}
+	
+	@Test
 	void check_contains() {
 		links.insertLast(1);
 		links.insertLast(2);
