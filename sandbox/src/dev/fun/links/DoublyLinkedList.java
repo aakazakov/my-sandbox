@@ -1,6 +1,6 @@
 package dev.fun.links;
 
-import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 public final class DoublyLinkedList<E> implements Iterable<E> {
@@ -15,7 +15,7 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
 		}
 	}
 	
-	private class Iteratorrr implements Iterator<E> {
+	private class Iteratorrr implements ListIterator<E> {
 		Node current;
 		
 		public Iteratorrr() {
@@ -43,6 +43,50 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
 				throw new NoSuchElementException();
 			}
 			removeLast();
+		}
+
+		@Override
+		public boolean hasPrevious() {
+			return current.prev != null;
+		}
+
+		@Override
+		public E previous() {
+			if (!hasPrevious()) {
+				throw new NoSuchElementException();
+			}
+			current = current.prev;
+			return current.value;
+		}
+
+		@Override
+		public int nextIndex() {
+			if (!hasNext()) {
+				return size;
+			}
+			int currentIndex = indexOf(current.value);
+			return currentIndex + 1;
+		}
+
+		@Override
+		public int previousIndex() {
+			if (!hasPrevious()) {
+				return -1;
+			}
+			int currentIndex = indexOf(current.value);
+			return currentIndex - 1;
+		}
+
+		@Override
+		public void set(E e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void add(E e) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 	
@@ -211,7 +255,7 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
 	}
 
 	@Override
-	public Iterator<E> iterator() {
+	public ListIterator<E> iterator() {
 		return new Iteratorrr();
 	}
 

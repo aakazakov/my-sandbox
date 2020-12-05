@@ -3,6 +3,7 @@ package dev.fun.links;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Iterator;
+import java.util.ListIterator;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -163,7 +164,17 @@ class DoublyLinkedListTest {
 		
 		Iterator<Integer> iterator = links.iterator();
 		
-		assertNotNull(iterator);
+		assertNotNull(iterator);;
+	}
+	
+	@Test
+	void check_next_method_iterator() {
+		links.insertLast(1);
+		links.insertLast(2);
+		links.insertLast(3);
+		links.insertLast(4);
+		
+		Iterator<Integer> iterator = links.iterator();
 		
 		int i = 0;
 		while (iterator.hasNext()) {
@@ -172,6 +183,28 @@ class DoublyLinkedListTest {
 			i++;
 		}
 		assertEquals(4, i);
+	}
+	
+	@Test
+	void check_previos_method_iterator() {
+		links.insertLast(1);
+		links.insertLast(2);
+		links.insertLast(3);
+		links.insertLast(4);
+		
+		ListIterator<Integer> iterator = links.iterator();
+		
+		while (iterator.hasNext()) {
+			iterator.next();
+		}
+		
+		int i = 0;
+		while (iterator.hasPrevious()) {
+			Integer actual = iterator.previous();
+			assertNotNull(actual);
+			i++;
+		}
+		assertEquals(3, i);
 	}
 	
 	@Test
@@ -184,6 +217,50 @@ class DoublyLinkedListTest {
 		iterator.remove();
 		
 		assertEquals(2, links.peekLast());
+	}
+	
+	@Test
+	void should_return_next_index_or_size_if_iterator_at_the_end() {
+		links.insertLast(1);
+		links.insertLast(2);
+		links.insertLast(3);
+		links.insertLast(4);
+		
+		ListIterator<Integer> iterator = links.iterator();
+		
+		assertEquals(0, iterator.nextIndex());
+		
+		iterator.next();
+		iterator.next();
+		
+		assertEquals(2, iterator.nextIndex());
+		
+		iterator.next();
+		iterator.next();
+		
+		assertEquals(links.size(), iterator.nextIndex());
+	}
+	
+	@Test
+	void should_return_previous_index() {
+		links.insertLast(1);
+		links.insertLast(2);
+		links.insertLast(3);
+		links.insertLast(4);
+		
+		ListIterator<Integer> iterator = links.iterator();
+		
+		assertEquals(-1, iterator.previousIndex());
+		
+		iterator.next();
+		iterator.next();
+		
+		assertEquals(0, iterator.previousIndex());
+		
+		iterator.next();
+		iterator.next();
+		
+		assertEquals(2, iterator.previousIndex());
 	}
 	
 	@Test
