@@ -284,6 +284,32 @@ class DoublyLinkedListTest {
 	}
 	
 	@Test
+	void should_add_before_next() {
+		ListIterator<Integer> iterator = links.iterator();
+		
+		iterator.add(10);
+		
+		assertEquals(1, links.size());
+		assertEquals(10, links.peekFirst());
+		
+		links.insertLast(1);
+		links.insertLast(2);
+		links.insertLast(3);
+		links.insertLast(4);
+		
+		assertEquals(1, iterator.next());
+		assertEquals(10, iterator.previous());
+		
+		iterator.next();
+		iterator.next();
+		
+		iterator.add(20);
+		assertEquals(20, iterator.previous());
+		assertEquals(2, iterator.next());
+		assertEquals(6, links.size());
+	}
+	
+	@Test
 	void check_contains() {
 		links.insertLast(1);
 		links.insertLast(2);

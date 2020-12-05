@@ -31,7 +31,7 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
 		@Override
 		public E next() {
 			if (!hasNext()) {
-				throw new NoSuchElementException();
+				throw new NoSuchElementException("the next is " + current.next);
 			}
 			current = current.next;
 			return current.value;
@@ -53,7 +53,7 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
 		@Override
 		public E previous() {
 			if (!hasPrevious()) {
-				throw new NoSuchElementException();
+				throw new NoSuchElementException("the previous is " + current.prev);
 			}
 			current = current.prev;
 			return current.value;
@@ -84,8 +84,17 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
 
 		@Override
 		public void add(E e) {
-			// TODO Auto-generated method stub
-			
+			if (isEmpty() || !hasPrevious()) {
+				insertFirst(e);
+				current = first;
+			} else {
+				Node node = new Node(e);
+				current.prev.next = node;
+				node.prev = current.prev;
+				current.prev = node;
+				node.next = current;
+				size++;
+			}
 		}
 	}
 	
