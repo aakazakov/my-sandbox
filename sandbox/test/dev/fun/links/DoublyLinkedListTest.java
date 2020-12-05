@@ -2,6 +2,8 @@ package dev.fun.links;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Iterator;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -150,6 +152,26 @@ class DoublyLinkedListTest {
 		
 		assertEquals(5, links.size());
 		assertEquals(2, links.indexOf(Integer.valueOf(10)));
+	}
+	
+	@Test
+	void should_return_iterator() {
+		links.insertLast(1);
+		links.insertLast(2);
+		links.insertLast(3);
+		links.insertLast(4);
+		
+		Iterator<Integer> iterator = links.iterator();
+		
+		assertNotNull(iterator);
+		
+		int i = 0;
+		while (iterator.hasNext()) {
+			Integer actual = iterator.next();
+			assertNotNull(actual);
+			i++;
+		}
+		assertEquals(4, i);
 	}
 	
 	@Test

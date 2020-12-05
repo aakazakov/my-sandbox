@@ -1,6 +1,9 @@
 package dev.fun.links;
 
-public final class DoublyLinkedList<E> {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public final class DoublyLinkedList<E> implements Iterable<E> {
 	
 	private class Node {
 		E value;
@@ -9,6 +12,29 @@ public final class DoublyLinkedList<E> {
 		
 		Node(E value) {
 			this.value = value;
+		}
+	}
+	
+	private class Iteratorrr implements Iterator<E> {
+		Node current;
+		
+		public Iteratorrr() {
+			current = new Node(null);
+			current.next = first;
+		}
+
+		@Override
+		public boolean hasNext() {
+			return current.next != null;
+		}
+
+		@Override
+		public E next() {
+			if (!hasNext()) {
+				throw new NoSuchElementException();
+			}
+			current = current.next;
+			return current.value;
 		}
 	}
 	
@@ -174,6 +200,11 @@ public final class DoublyLinkedList<E> {
 	
 	public int size() {
 		return size;
+	}
+
+	@Override
+	public Iterator<E> iterator() {
+		return new Iteratorrr();
 	}
 
 }
