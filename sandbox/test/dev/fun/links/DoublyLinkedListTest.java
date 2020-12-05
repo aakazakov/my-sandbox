@@ -175,6 +175,18 @@ class DoublyLinkedListTest {
 	}
 	
 	@Test
+	void check_remove_by_iterator() {
+		links.insertLast(1);
+		links.insertLast(2);
+		links.insertLast(3);
+		
+		Iterator<Integer> iterator = links.iterator();
+		iterator.remove();
+		
+		assertEquals(2, links.peekLast());
+	}
+	
+	@Test
 	void check_contains() {
 		links.insertLast(1);
 		links.insertLast(2);

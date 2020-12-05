@@ -19,8 +19,8 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
 		Node current;
 		
 		public Iteratorrr() {
-			current = new Node(null);
-			current.next = first;
+			this.current = new Node(null);
+			this.current.next = first;
 		}
 
 		@Override
@@ -35,6 +35,14 @@ public final class DoublyLinkedList<E> implements Iterable<E> {
 			}
 			current = current.next;
 			return current.value;
+		}
+		
+		@Override
+		public void remove() {
+			if (!hasNext()) {
+				throw new NoSuchElementException();
+			}
+			removeLast();
 		}
 	}
 	
