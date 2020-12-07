@@ -64,4 +64,8 @@ public class Thing {
 				&& thing.getTitle().equals(this.title);
 	}
 	
+	@Override
+	public String toString() {
+		return String.format("{title: %s, volume: %d, value: %d}", title, volume, value);
+	}
 }

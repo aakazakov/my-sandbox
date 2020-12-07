@@ -1,23 +1,27 @@
 package dev.fun.recursion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class KnapsackSolution {
+	
+	private List<Thing> list;
+	
+	public KnapsackSolution() {
+		this.list = new ArrayList<>();
+	}
 
-	public StringBuilder greedySolution(List<Thing> things, int knapsackVolume, int index, StringBuilder seq) {
+	public List<Thing> greedySolution(List<Thing> things, int knapsackVolume, int index) {
 		if (knapsackVolume > 0 && index >= 0) {
 			Thing thing = things.get(index);
 			if (thing.getVolume() <= knapsackVolume) {
-				seq.append(thing.getTitle()).append(", ");
+				list.add(thing);
 				knapsackVolume -= thing.getVolume();
 				--index;
-				return greedySolution(things, knapsackVolume, index, seq);
+				return greedySolution(things, knapsackVolume, index);
 			}
 		}
-		if (seq.length() > 0) {
-			seq.setLength(seq.length() - 2);
-		}
-		return seq;
+		return list;
 	}
 	
 }

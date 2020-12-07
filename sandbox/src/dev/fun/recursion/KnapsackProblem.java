@@ -16,9 +16,9 @@ public class KnapsackProblem {
 		thingList.sort((o1, o2) -> o1.getValue() - o2.getValue());
 		
 		KnapsackSolution solution = new KnapsackSolution();
-		StringBuilder sb = solution.greedySolution(thingList, 50, thingList.size() - 1, new StringBuilder());
+		List<Thing> list = solution.greedySolution(thingList, 50, thingList.size() - 1);
 		
-		System.out.println(sb.toString());
+		System.out.println(list);
 		
 	}
 }
