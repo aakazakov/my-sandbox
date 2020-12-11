@@ -72,6 +72,36 @@ public final class BTreeMap<K extends Comparable<K>, V> {
 		}
 	}
 	
+	public void remove(K key) {
+		checkKeyForNull(key);
+		root = remove(key, root);
+	}
+	
+	private Node remove(K key, Node node) {
+		if (node == null) {
+			return null;
+		}
+		int result = key.compareTo(node.key);
+		if (result < 0) {
+			node.left = remove(key, node.left);
+		} else if (result > 0) {
+			node.right = remove(key, node.right);
+		} else {
+			if (node.left == null) {
+				return node.right;
+			}
+			if (node.right == null) {
+				return node.left;
+			}
+			Node tmp = node;
+			node = max(tmp.left);
+			node.left = removeMax(tmp.left);
+			node.right = tmp.right;	
+		}
+		node.size = calcSize(node);
+		return node;
+	}
+	
 	public void removeMin() {
 		if (isEmpty()) {
 			throw new NoSuchElementException("Emptiness...");
