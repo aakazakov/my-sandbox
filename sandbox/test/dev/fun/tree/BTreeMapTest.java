@@ -76,5 +76,41 @@ class BTreeMapTest {
 		
 		assertEquals(22, map.maxKey());
 	}
+	
+	@Test
+	void testRemoveMin() {
+		map.put(10, "10");
+		map.put(2, "2");
+		map.put(15, "15");
+		map.put(7, "7");
+		map.put(11, "11");
+		map.put(22, "22");
+		
+		assertTrue(map.contains(2));
+		assertEquals(6, map.size());
+		
+		map.removeMin();
+		
+		assertFalse(map.contains(2));
+		assertEquals(5, map.size());
+	}
+	
+	@Test
+	void testRemoveMax() {
+		map.put(10, "10");
+		map.put(2, "2");
+		map.put(15, "15");
+		map.put(7, "7");
+		map.put(11, "11");
+		map.put(22, "22");
+		
+		assertTrue(map.contains(22));
+		assertEquals(6, map.size());
+		
+		map.removeMax();
+		
+		assertFalse(map.contains(22));
+		assertEquals(5, map.size());
+	}
 
 }

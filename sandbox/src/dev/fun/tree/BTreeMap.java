@@ -1,5 +1,7 @@
 package dev.fun.tree;
 
+import java.util.NoSuchElementException;
+
 public final class BTreeMap<K extends Comparable<K>, V> {
 
 	private class Node {
@@ -37,7 +39,7 @@ public final class BTreeMap<K extends Comparable<K>, V> {
 		if (result > 0) {
 			node.right = put(key, value, node.right);
 		}
-		node.size = size(node.left) + size(node.right) + 1;
+		node.size = calcSize(node);
 		return node;
 	}
 	
@@ -70,6 +72,38 @@ public final class BTreeMap<K extends Comparable<K>, V> {
 		}
 	}
 	
+	public void removeMin() {
+		if (isEmpty()) {
+			throw new NoSuchElementException("Emptiness...");
+		}
+		root = removeMin(root);
+	}
+	
+	private Node removeMin(Node node) {
+		if (node.left == null) {
+			return node.right;
+		}
+		node.left = removeMin(node.left);
+		node.size = calcSize(node);
+		return node;
+	}
+	
+	public void removeMax() {
+		if (isEmpty()) {
+			throw new NoSuchElementException("Emptiness...");
+		}
+		root = removeMax(root);
+	}
+	
+	private Node removeMax(Node node) {
+		if (node.right == null) {
+			return node.left;
+		}
+		node.right = removeMax(node.right);
+		node.size = calcSize(node);
+		return node;
+	}
+	
 	public K minKey() {
 		if (isEmpty()) {
 			return null;
@@ -96,6 +130,10 @@ public final class BTreeMap<K extends Comparable<K>, V> {
 			return node;
 		}
 		return max(node.right);
+	}
+	
+	private int calcSize(Node node) {
+		return size(node.left) + size(node.right) + 1;
 	}
 	
 	public int size() {
