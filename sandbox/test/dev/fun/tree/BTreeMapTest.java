@@ -145,4 +145,20 @@ class BTreeMapTest {
 		assertEquals(5, map.depth());
 	}
 
+	@Test
+	void testIsBalanced() {
+		map.put(10, "10");
+		map.put(2, "2");
+		map.put(15, "15");
+		map.put(7, "7");
+		map.put(11, "11");
+		map.put(22, "22");
+		map.put(20, "20");
+		
+		assertTrue(map.isBalanced());
+		
+		map.put(21, "21");
+		
+		assertFalse(map.isBalanced());
+	}
 }

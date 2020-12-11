@@ -178,6 +178,23 @@ public final class BTreeMap<K extends Comparable<K>, V> {
 		return root == null;
 	}
 	
+	public boolean isBalanced() {
+		if (isEmpty()) {
+			return true;
+		}
+		return isBalanced(root);
+	}
+	
+	private boolean isBalanced(Node node) {
+		if (node == null) {
+			return true;
+		}
+		int leftDepth = depth(node.left);
+		int rightDepth = depth(node.right);
+		int delta = Math.abs(leftDepth - rightDepth);
+		return delta <= 1 && isBalanced(node.left) && isBalanced(node.right);
+	}
+	
 	public int depth() {
 		if (isEmpty()) {
 			return 0;
