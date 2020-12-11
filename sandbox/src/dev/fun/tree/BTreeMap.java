@@ -178,4 +178,23 @@ public final class BTreeMap<K extends Comparable<K>, V> {
 		return root == null;
 	}
 	
+	public int depth() {
+		if (isEmpty()) {
+			return 0;
+		}
+		return depth(root);
+	}
+	
+	private int depth(Node node) {
+		if (node == null) {
+			return 0;
+		}
+		int leftDepth = depth(node.left);
+		int rightDepth = depth(node.right);
+		if (leftDepth > rightDepth) {
+			return leftDepth + 1;
+		}
+		return rightDepth + 1;
+	}
+	
 }

@@ -130,5 +130,19 @@ class BTreeMapTest {
 		assertFalse(map.contains(10));
 		assertEquals(5, map.size());
 	}
+	
+	@Test
+	void testDepth() {
+		map.put(10, "10");
+		map.put(2, "2");
+		map.put(15, "15");
+		map.put(7, "7");
+		map.put(11, "11");
+		map.put(22, "22");
+		map.put(20, "20");
+		map.put(21, "21");
+		
+		assertEquals(5, map.depth());
+	}
 
 }
