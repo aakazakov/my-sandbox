@@ -43,6 +43,7 @@ public class Graph {
 		if (vertex1 != vertex2) {
 			adjList[vertex2].add(vertex1);
 		}
+		edgeCount++;
 	}
 	
 }
