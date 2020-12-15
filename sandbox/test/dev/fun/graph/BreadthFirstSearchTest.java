@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-class DepthFirstSearchTest {
+class BreadthFirstSearchTest {
 
 	@Test
 	void testAll() {
@@ -18,14 +18,13 @@ class DepthFirstSearchTest {
 		graph.addEdge(1, 2);
 		graph.addEdge(2, 4);
 		
-		DepthFirstSearch dfs = new DepthFirstSearch(graph, 0);
+		BreadthFirstSearch bfs = new BreadthFirstSearch(graph, 0);
 		
-		List<Integer> path = dfs.path(4);
+		List<Integer> path = bfs.path(4);
 		
-		assertEquals(1, path.get(0));
-		assertEquals(4, path.get(1));
+		assertEquals(4, path.get(0));
 		
-		path = dfs.path(3);
+		path = bfs.path(3);
 		
 		assertEquals(1, path.get(0));
 		assertEquals(3, path.get(1));
