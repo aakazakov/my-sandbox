@@ -26,7 +26,7 @@ public class ChainingHashMap<K, V> {
 		}
 	}
 	
-	public void Put(K key, V value) {
+	public void put(K key, V value) {
 		checkKeyIsNotNull(key);
 		int index = hash(key);
 		for (Node node: st[index]) {
@@ -39,8 +39,18 @@ public class ChainingHashMap<K, V> {
 		size++;
 	}
 	
+	public boolean contains(K key) {
+		return get(key) != null;
+	}
+	
 	public V get(K key) {
-		
+		checkKeyIsNotNull(key);
+		int index = hash(key);
+		for (Node node: st[index]) {
+			if (key.equals(node.key)) {
+				return node.value;			
+			}
+		}
 		return null;
 	}
 	
