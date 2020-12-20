@@ -54,6 +54,21 @@ public class ChainingHashMap<K, V> {
 		return null;
 	}
 	
+	public V remove(K key) {
+		checkKeyIsNotNull(key);
+		int index = hash(key);
+		DoublyLinkedList<Node> chain = st[index];
+		for (Node node: chain) {
+			if (key.equals(node.key)) {
+				Node tmp = node;
+				chain.remove(node);
+				size--;
+				return tmp.value;
+			}
+		}		
+		return null;
+	}
+	
 	private void checkKeyIsNotNull(K key) {
 		if (key == null)
 			throw new IllegalArgumentException("the key must not be null");
