@@ -2,10 +2,28 @@ package dev.fun.hash;
 
 public class LinearProbingHashMap<K, V> {
 	
+	@SuppressWarnings("unchecked")
+	private final K REMOVED = (K) new Object();
+	
 	private int capacity = 16;
 	private K[] keys;
 	private V[] values;
 	private int size;
+	
+	//for tests
+	public Object[] getKeys() {
+		return keys;
+	}
+	
+	//for tests
+	public Object[] getValues() {
+		return values;
+	}
+	
+	// for tests
+	public Object getREMOVED() {
+		return REMOVED;
+	}
 	
 	@SuppressWarnings("unchecked")
 	public LinearProbingHashMap() {
@@ -19,7 +37,7 @@ public class LinearProbingHashMap<K, V> {
 			checkKeyIsNotNull(key);
 			int index = hash(key);
 			int step = step(key);
-			while (keys[index] != null) {
+			while (keys[index] != null && !keys[index].equals(REMOVED)) {
 				if (key.equals(keys[index])) {
 					values[index] = value;
 					return true;
@@ -32,6 +50,23 @@ public class LinearProbingHashMap<K, V> {
 			return true;
 		}
 		return false;
+	}
+	
+	public V remove(K key) {
+		checkKeyIsNotNull(key);
+		int index = hash(key);
+		int step = step(key);
+		while (keys[index] != null) {
+			if (key.equals(keys[index])) {
+				keys[index] = REMOVED;
+				V tmp = values[index];
+				values[index] = null;
+				size--;
+				return tmp;
+			}
+			index = (index + step) % capacity;
+		}
+		return null;
 	}
 	
 	public boolean contains(K key) {
@@ -75,4 +110,5 @@ public class LinearProbingHashMap<K, V> {
 	public int size() {
 		return size;
 	}
+	
 }

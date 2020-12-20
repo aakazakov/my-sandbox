@@ -28,6 +28,44 @@ class LinearProbingHashMapTest {
 		String actual = lphm.get(1);
 		
 		assertEquals("1", actual);
+		
+		lphm.put(1, "5");
+		
+		actual = lphm.get(1);
+		
+		assertEquals("5", actual);
+	}
+	
+	@Test
+	void checkRemove() {
+		lphm.put(1, "1");
+		lphm.put(2, "2");
+		lphm.put(3, "3");
+		lphm.put(4, "4");
+		lphm.put(5, "5");
+		lphm.put(6, "6");
+		lphm.put(7, "7");
+		lphm.put(8, "8");
+		
+		assertEquals(8, lphm.size());
+		
+		String actual = lphm.remove(5);
+		
+		assertEquals("5", actual);	
+		assertEquals(7, lphm.size());
+		
+		Object[] keys = lphm.getKeys();
+		
+		assertEquals(lphm.getREMOVED(), keys[5]);
+		
+		Object[] values = lphm.getValues();
+		
+		assertNull(values[5]);
+		
+		lphm.put(5, "15");
+		
+		assertEquals(5, keys[5]);
+		assertEquals("15", values[5]);
 	}
 
 }
