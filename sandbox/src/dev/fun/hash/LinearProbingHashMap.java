@@ -37,15 +37,23 @@ public class LinearProbingHashMap<K, V> {
 			checkKeyIsNotNull(key);
 			int index = hash(key);
 			int step = step(key);
-			while (keys[index] != null && !keys[index].equals(REMOVED)) {
-				if (key.equals(keys[index])) {
+			int removed = -1;
+			while (keys[index] != null) {
+				if (keys[index].equals(REMOVED)) {
+					removed = index;
+				} else if (key.equals(keys[index])) {
 					values[index] = value;
 					return true;
 				}
 				index = (index + step) % capacity;
 			}
-			keys[index] = key;
-			values[index] = value;
+			if (removed != -1) {
+				keys[removed] = key;
+				values[removed] = value;
+			} else {
+				keys[index] = key;
+				values[index] = value;
+			}
 			size++;
 			return true;
 		}

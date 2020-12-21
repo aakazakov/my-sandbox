@@ -38,6 +38,7 @@ class LinearProbingHashMapTest {
 	
 	@Test
 	void checkRemove() {
+		lphm.put(0, "0");
 		lphm.put(1, "1");
 		lphm.put(2, "2");
 		lphm.put(3, "3");
@@ -47,12 +48,12 @@ class LinearProbingHashMapTest {
 		lphm.put(7, "7");
 		lphm.put(8, "8");
 		
-		assertEquals(8, lphm.size());
+		assertEquals(9, lphm.size());
 		
 		String actual = lphm.remove(5);
 		
 		assertEquals("5", actual);	
-		assertEquals(7, lphm.size());
+		assertEquals(8, lphm.size());
 		
 		Object[] keys = lphm.getKeys();
 		
@@ -66,6 +67,15 @@ class LinearProbingHashMapTest {
 		
 		assertEquals(5, keys[5]);
 		assertEquals("15", values[5]);
+		
+		// if an occupied slot contains REMOVED (Object),
+		// the new key should occupy this slot
+		lphm.remove(5);
+		lphm.put(16, "16");
+		
+		assertEquals(16, keys[5]);
+		assertEquals("16", values[5]);	
+		assertEquals("16", lphm.get(16));
 	}
 
 }
