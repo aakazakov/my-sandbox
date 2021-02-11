@@ -7,11 +7,9 @@ public class PingPong {
 	public synchronized void ping() {
 		while (flag) {
 			try {
-				Thread.sleep(1000);
 				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-				Thread.currentThread().interrupt();
 			}
 		}		
 		System.out.println("ping ");
@@ -22,11 +20,9 @@ public class PingPong {
 	public synchronized void pong() {
 		while (!flag) {
 			try {
-				Thread.sleep(1000);
 				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-				Thread.currentThread().interrupt();
 			} 
 		}
 		System.out.println("pong ");
