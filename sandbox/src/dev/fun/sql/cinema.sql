@@ -64,8 +64,8 @@ CREATE TABLE tickets_tbl (
         ON DELETE CASCADE
 );
 
-DROP FUNCTION IF EXISTS compute_total_price_fld(type_of_day_id INT, session_id INT,  film_id INT);
-CREATE FUNCTION compute_total_price_fld(type_of_day_id INT, session_id INT,  film_id INT) RETURNS INT AS
+DROP FUNCTION IF EXISTS compute_total_price(type_of_day_id INT, session_id INT,  film_id INT);
+CREATE FUNCTION compute_total_price(type_of_day_id INT, session_id INT,  film_id INT) RETURNS INT AS
 $$
   SELECT f.base_price_fld * tod.price_coefficient_fld * s.price_coefficient_fld 
   FROM films_tbl f, types_of_days_tbl tod, sessions_tbl s
@@ -87,15 +87,15 @@ INSERT INTO types_of_days_tbl (type_fld, price_coefficient_fld) VALUES ('weekday
 INSERT INTO types_of_days_tbl (type_fld, price_coefficient_fld) VALUES ('day_off', 2);
 INSERT INTO types_of_days_tbl (type_fld, price_coefficient_fld) VALUES ('holiday', 3);
 
-INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 1, 1, compute_total_price_fld(1, 1, 1));
-INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 1, 2, compute_total_price_fld(1, 1, 2));
-INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 1, 3, compute_total_price_fld(1, 1, 3));
-INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 2, 1, compute_total_price_fld(1, 2, 1));
-INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 2, 2, compute_total_price_fld(1, 2, 2));
-INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 3, 1, compute_total_price_fld(1, 3, 1));
-INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 3, 2, compute_total_price_fld(1, 3, 2));
-INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 3, 3, compute_total_price_fld(1, 3, 3));
-INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 4, 3, compute_total_price_fld(1, 4, 3));
+INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 1, 1, compute_total_price(1, 1, 1));
+INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 1, 2, compute_total_price(1, 1, 2));
+INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 1, 3, compute_total_price(1, 1, 3));
+INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 2, 1, compute_total_price(1, 2, 1));
+INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 2, 2, compute_total_price(1, 2, 2));
+INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 3, 1, compute_total_price(1, 3, 1));
+INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 3, 2, compute_total_price(1, 3, 2));
+INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 3, 3, compute_total_price(1, 3, 3));
+INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price_fld) VALUES (1, 4, 3, compute_total_price(1, 4, 3));
 
 INSERT INTO tickets_tbl (film_id_fld, session_id_fld, date_fld) VALUES (1, 3, NOW()::DATE);
 INSERT INTO tickets_tbl (film_id_fld, session_id_fld, date_fld) VALUES (1, 3, NOW()::DATE);
