@@ -48,6 +48,22 @@ CREATE TABLE timetable_tbl (
         ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS tickets_tbl;
+CREATE TABLE tickets_tbl (
+  id_fld SERIAL PRIMARY KEY,
+  session_id_fld INT NOT NULL,
+  date_fld DATE NOT NULL,
+  film_id_fld INT NOT NULL,
+  CONSTRAINT fk_session
+    FOREIGN KEY(session_id_fld)
+      REFERENCES sessions_tbl(id_fld)
+        ON DELETE CASCADE,
+  CONSTRAINT fk_film
+    FOREIGN KEY(film_id_fld)
+      REFERENCES films_tbl(id_fld)
+        ON DELETE CASCADE
+);
+
 DROP FUNCTION IF EXISTS compute_total_price(type_of_day_id INT, session_id INT,  film_id INT);
 CREATE FUNCTION compute_total_price(type_of_day_id INT, session_id INT,  film_id INT) RETURNS INT AS
 $$
@@ -80,3 +96,11 @@ INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, tota
 INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price) VALUES (1, 3, 2, compute_total_price(1, 3, 2));
 INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price) VALUES (1, 3, 3, compute_total_price(1, 3, 3));
 INSERT INTO timetable_tbl (type_of_day_id_fld, session_id_fld, film_id_fld, total_price) VALUES (1, 4, 3, compute_total_price(1, 4, 3));
+
+INSERT INTO tickets_tbl (film_id_fld, session_id_fld, date_fld) VALUES (1, 3, NOW()::DATE);
+INSERT INTO tickets_tbl (film_id_fld, session_id_fld, date_fld) VALUES (1, 3, NOW()::DATE);
+INSERT INTO tickets_tbl (film_id_fld, session_id_fld, date_fld) VALUES (2, 3, NOW()::DATE);
+INSERT INTO tickets_tbl (film_id_fld, session_id_fld, date_fld) VALUES (2, 1, NOW()::DATE);
+INSERT INTO tickets_tbl (film_id_fld, session_id_fld, date_fld) VALUES (3, 3, NOW()::DATE);
+INSERT INTO tickets_tbl (film_id_fld, session_id_fld, date_fld) VALUES (3, 3, NOW()::DATE);
+INSERT INTO tickets_tbl (film_id_fld, session_id_fld, date_fld) VALUES (3, 4, NOW()::DATE);
