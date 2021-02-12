@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS sessions_tbl;
 CREATE TABLE sessions_tbl (
   id_fld SERIAL PRIMARY KEY,
   start_fld TIME NOT NULL,
-  finish_tbl TIME NOT NULL,
+  finish_fld TIME NOT NULL,
   price_coefficient_fld SMALLINT NOT NULL
 );
 
@@ -78,10 +78,10 @@ INSERT INTO films_tbl (title_fld, duration_fld, base_price_fld) VALUES ('film1',
 INSERT INTO films_tbl (title_fld, duration_fld, base_price_fld) VALUES ('film2', 90, 60);
 INSERT INTO films_tbl (title_fld, duration_fld, base_price_fld) VALUES ('film3', 120, 70);
 
-INSERT INTO sessions_tbl (start_fld, finish_tbl, price_coefficient_fld) VALUES ('07:00', '12:00', 2);
-INSERT INTO sessions_tbl (start_fld, finish_tbl, price_coefficient_fld) VALUES ('12:30', '17:30', 2);
-INSERT INTO sessions_tbl (start_fld, finish_tbl, price_coefficient_fld) VALUES ('18:00', '23:00', 3);
-INSERT INTO sessions_tbl (start_fld, finish_tbl, price_coefficient_fld) VALUES ('23:30', '04:30', 1);
+INSERT INTO sessions_tbl (start_fld, finish_fld, price_coefficient_fld) VALUES ('07:00', '12:00', 2);
+INSERT INTO sessions_tbl (start_fld, finish_fld, price_coefficient_fld) VALUES ('12:30', '17:30', 2);
+INSERT INTO sessions_tbl (start_fld, finish_fld, price_coefficient_fld) VALUES ('18:00', '23:00', 3);
+INSERT INTO sessions_tbl (start_fld, finish_fld, price_coefficient_fld) VALUES ('23:30', '04:30', 1);
 
 INSERT INTO types_of_days_tbl (type_fld, price_coefficient_fld) VALUES ('weekday', 1);
 INSERT INTO types_of_days_tbl (type_fld, price_coefficient_fld) VALUES ('day_off', 2);
@@ -104,3 +104,14 @@ INSERT INTO tickets_tbl (film_id_fld, session_id_fld, date_fld) VALUES (2, 1, NO
 INSERT INTO tickets_tbl (film_id_fld, session_id_fld, date_fld) VALUES (3, 3, NOW()::DATE);
 INSERT INTO tickets_tbl (film_id_fld, session_id_fld, date_fld) VALUES (3, 3, NOW()::DATE);
 INSERT INTO tickets_tbl (film_id_fld, session_id_fld, date_fld) VALUES (3, 4, NOW()::DATE);
+
+
+-- ### Queries ###
+
+-- films at the same session
+SELECT f.title_fld, s.start_fld, s.finish_fld
+FROM timetable_tbl t
+JOIN films_tbl f ON t.film_id_fld=f.id_fld
+JOIN sessions_tbl s ON t.session_id_fld=s.id_fld
+WHERE t.session_id_fld=3;
+
