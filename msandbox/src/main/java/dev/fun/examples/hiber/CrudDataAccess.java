@@ -47,6 +47,17 @@ public class CrudDataAccess<E, T extends Serializable> {
 		session.close();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public E createAndReturn(E entity) {
+		Session session = SessionFactoryConfig.sessionFactory.openSession();
+		session.beginTransaction();
+		T id = (T) session.save(entity);
+		E created = session.get(entityClass, id);
+		session.getTransaction().commit();
+		session.close();
+		return created;
+	}
+	
 	public E read(T id) {
 		Session session = SessionFactoryConfig.sessionFactory.openSession();
 		E entity = session.get(entityClass, id);
@@ -62,9 +73,28 @@ public class CrudDataAccess<E, T extends Serializable> {
 		session.close();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public E updateAndReturn(E entity) {
+		Session session = SessionFactoryConfig.sessionFactory.openSession();
+		session.beginTransaction();
+		E updated = (E) session.merge(entity);
+		session.getTransaction().commit();
+		session.close();
+		return updated;
+	}
+	
 	public void delete(E entity) {
 		Session session = SessionFactoryConfig.sessionFactory.openSession();
 		session.beginTransaction();
+		session.delete(entity);
+		session.getTransaction().commit();
+		session.close();
+	}
+	
+	public void deleteById(T id) {
+		Session session = SessionFactoryConfig.sessionFactory.openSession();
+		session.beginTransaction();
+		E entity = session.load(entityClass, id);
 		session.delete(entity);
 		session.getTransaction().commit();
 		session.close();
