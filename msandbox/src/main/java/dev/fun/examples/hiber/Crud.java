@@ -16,8 +16,8 @@ public class Crud {
 //		dao.update(up);
 //		System.out.println(dao.read(1L));
 		
-		User up = dao.read(3L);
-		dao.delete(up);
+		User del = dao.read(2L);
+		dao.delete(del);
 		
 	}
 	

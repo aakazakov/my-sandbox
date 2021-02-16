@@ -64,7 +64,9 @@ public class CrudDataAccess<E, T extends Serializable> {
 	
 	public void delete(E entity) {
 		Session session = SessionFactoryConfig.sessionFactory.openSession();
+		session.beginTransaction();
 		session.delete(entity);
+		session.getTransaction().commit();
 		session.close();
 	}
 	
