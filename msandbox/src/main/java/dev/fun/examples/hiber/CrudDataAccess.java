@@ -31,10 +31,6 @@ public class CrudDataAccess<E, T extends Serializable> {
 	
 	private final Class<E> entityClass;
 	
-	public Class<E> getEntityClass() {
-		return entityClass;
-	}
-	
 	public CrudDataAccess(Class<E> entityClass) {
 		this.entityClass = entityClass;
 	}
@@ -92,10 +88,13 @@ public class CrudDataAccess<E, T extends Serializable> {
 	}
 	
 	public void deleteById(T id) {
+		String query = "DELETE " + entityClass.getSimpleName() + " WHERE id=:id";
 		Session session = SessionFactoryConfig.sessionFactory.openSession();
 		session.beginTransaction();
-		E entity = session.load(entityClass, id);
-		session.delete(entity);
+		session
+			.createQuery(query)
+			.setParameter("id", id)
+			.executeUpdate();
 		session.getTransaction().commit();
 		session.close();
 	}
