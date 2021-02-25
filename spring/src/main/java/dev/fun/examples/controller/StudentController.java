@@ -4,27 +4,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import dev.fun.examples.dao.StudentRepository;
 import dev.fun.examples.domain.Student;
 import dev.fun.examples.dto.StudentDto;
 
-@RestController
+@Controller
 @RequestMapping("/students")
 public class StudentController {
 	
 	@Autowired
 	private StudentRepository repo;
+
+	@GetMapping("/add")
+	public String add(Model model) {
+		model.addAttribute("student", new StudentDto());
+		return "add-form";
+	}
 	
 	@PostMapping("/add")
-	public StudentDto add(@RequestBody StudentDto dto) {
-		return fromStudent(repo.save(toStudent(dto)));
+	public String add(StudentDto dto) {
+		repo.save(toStudent(dto));
+		return "redirect:/students/all";
 	}
 	
 	@GetMapping("/all")
-	public List<StudentDto> getAll() {
-		return fromStudentList(repo.findAll());
+	public String getAll(Model model) {
+		model.addAttribute("students", fromStudentList(repo.findAll()));
+		return "index";
 	}
 	
 	@GetMapping("/id/{id}")
@@ -32,17 +42,23 @@ public class StudentController {
 		return fromStudent(repo.findById(id).orElse(new Student()));
 	}
 	
+//	@GetMapping("/update")
+//	public String update(Model model) {
+//		
+//	}
+	
 	@PutMapping("/update")
-	public StudentDto update(@RequestBody StudentDto dto) {
+	public StudentDto update(StudentDto dto) {
 		if (dto.getId() == null) {
 			throw new IllegalArgumentException("id must not be null");
 		}
 		return fromStudent(repo.save(toStudent(dto)));
 	}
 	
-	@DeleteMapping("/delete")
-	public void delete(@RequestParam(name = "id") Long id) {
+	@GetMapping("/delete")
+	public String delete(@RequestParam(name = "id") Long id) {
 		repo.deleteById(id);
+		return "redirect:/students/all";
 	}
 	
 	private List<StudentDto> fromStudentList(List<Student> students) {
