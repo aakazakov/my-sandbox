@@ -34,12 +34,12 @@
           <td th:text="${student.name}"></td>
           <td th:text="${student.age}"></td>
           <td>
-            <a href="#" class="btn">update</a>
-            <a th:href="@{/students/delete(id=${student.id})}" class="btn">delete</a>
+            <a th:href="@{/students/actions/update(id=${student.id})}" class="btn">update</a>
+            <a th:href="@{/students/actions/delete(id=${student.id})}" class="btn">delete</a>
           </td>
         </tr>
       </table>
-      <a th:href="@{/students/add}" class="btn">add</a>
+      <a th:href="@{/students/actions/add}" class="btn">add</a>
     </div>
   </body>
 </html>

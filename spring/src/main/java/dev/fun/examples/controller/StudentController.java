@@ -19,14 +19,22 @@ public class StudentController {
 	@Autowired
 	private StudentRepository repo;
 
-	@GetMapping("/add")
-	public String add(Model model) {
-		model.addAttribute("student", new StudentDto());
-		return "add-form";
+	@GetMapping("/actions/{act}")
+	public String addOrUpdate(
+				Model model, 
+				@RequestParam(name = "id", required = false) Long id, 
+				@PathVariable(name = "act") String act
+			) {
+		if (act.equals("add")) {
+			model.addAttribute("student", new StudentDto());
+		} else if (act.equals("update")) {
+			model.addAttribute("student", fromStudent(repo.getOne(id)));
+		}
+		return "add-or-update-form";
 	}
 	
-	@PostMapping("/add")
-	public String add(StudentDto dto) {
+	@PostMapping("/add-or-update")
+	public String addOrUpdate(StudentDto dto) {
 		repo.save(toStudent(dto));
 		return "redirect:/students/all";
 	}
@@ -37,25 +45,13 @@ public class StudentController {
 		return "index";
 	}
 	
-	@GetMapping("/id/{id}")
-	public StudentDto get(@PathVariable(name = "id") Long id) {
-		return fromStudent(repo.findById(id).orElse(new Student()));
+	@GetMapping("/update")
+	public String update(Model model, @RequestParam(name = "id") Long id) {
+		model.addAttribute("student", fromStudent(repo.getOne(id)));
+		return "update-form";
 	}
 	
-//	@GetMapping("/update")
-//	public String update(Model model) {
-//		
-//	}
-	
-	@PutMapping("/update")
-	public StudentDto update(StudentDto dto) {
-		if (dto.getId() == null) {
-			throw new IllegalArgumentException("id must not be null");
-		}
-		return fromStudent(repo.save(toStudent(dto)));
-	}
-	
-	@GetMapping("/delete")
+	@GetMapping("/actions/delete")
 	public String delete(@RequestParam(name = "id") Long id) {
 		repo.deleteById(id);
 		return "redirect:/students/all";
