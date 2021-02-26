@@ -45,12 +45,6 @@ public class StudentController {
 		return "index";
 	}
 	
-	@GetMapping("/update")
-	public String update(Model model, @RequestParam(name = "id") Long id) {
-		model.addAttribute("student", fromStudent(repo.getOne(id)));
-		return "update-form";
-	}
-	
 	@GetMapping("/actions/delete")
 	public String delete(@RequestParam(name = "id") Long id) {
 		repo.deleteById(id);
