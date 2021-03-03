@@ -41,7 +41,7 @@ public class DataFiller implements CommandLineRunner {
 		
 		role1.setAuthorities(Arrays.asList(auth1, auth2, auth3, auth4, auth5, auth6));
 		role2.setAuthorities(Arrays.asList(auth1, auth2, auth3, auth4));
-		role1.setAuthorities(Arrays.asList(auth1, auth2));
+		role3.setAuthorities(Arrays.asList(auth1, auth2));
 		
 		roleRepository.saveAll(Arrays.asList(role1, role2, role3));
 		
